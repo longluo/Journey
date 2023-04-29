@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Globe</title>
+    <head>
+        <script type='text/javascript' src='http://d3js.org/d3.v3.min.js'></script>
+        <script type='text/javascript' src='http://d3js.org/topojson.v1.min.js'></script>
+        <script type='text/javascript' src='./js/planetaryjs.min.js'></script>
+    </head>
+</head>
+<body>
+
+<canvas id='basicGlobe' width='500' height='500'></canvas>
+
+<script type="text/javascript">
+    (function () {
+        var canvas = document.getElementById('basicGlobe');
+        var planet = planetaryjs.planet();
+        // Loading this plugin technically happens automatically,
+        // but we need to specify the path to the `world-110m.json` file.
+        planet.loadPlugin(planetaryjs.plugins.earth({
+            topojson: {file: './data/world-110m.json'}
+        }));
+        // Scale the planet's radius to half the canvas' size
+        // and move it to the center of the canvas.
+        planet.projection
+            .scale(canvas.width / 2)
+            .translate([canvas.width / 2, canvas.height / 2]);
+        planet.draw(canvas);
+    })();
+</script>
+</body>
+</html>
